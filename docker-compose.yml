@@ -5,11 +5,21 @@ volumes:
 
 services:
   db:
-    image: postgres:latest
+    container_name: db-postgres
+    image: postgres:15.4-bullseye
+    ports:
+      - "5432:5432"
     volumes:
       - ./db:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: nex
+    healthcheck:
+      test: pg_isready -U ${DB_USER} -d nex
+      interval: 2s
+      timeout: 3s
+      retries: 40
 
   backend:
     build: ./backend
