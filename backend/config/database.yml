@@ -1,11 +1,12 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: db
-  username: postgres
-  password: password
+  host: db-postgres
+  port: 5432
+  username: <%= ENV['DB_USER'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
   pool: 5
 
 development:
   <<: *default
-  database: myapp_development
+  database: nex

@@ -22,6 +22,7 @@ services:
       retries: 40
 
   backend:
+    container_name: backend-rails
     build: ./backend
     command: bundle exec rails s -p 3001 -b '0.0.0.0'
     volumes:
@@ -31,9 +32,14 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://postgres:password@db/development
+      DB_HOST: db-postgres
+      DB_PORT: 5432
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: nex
 
   frontend:
+    container_name: frontend-next
     build: ./frontend
     command: npm run dev
     volumes:
