@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "user#index" # ここでは、homeコントローラのindexアクションをルートパスに指定しています。
 
+  post 'auth/login', to: 'auth#login'
+  
   # CRUD operations for users
   resources :users
 
