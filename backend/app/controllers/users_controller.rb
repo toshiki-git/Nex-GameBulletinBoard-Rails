@@ -18,7 +18,7 @@ class UsersController < ApplicationController
         else
           render json: @user.errors, status: :unprocessable_entity
         end
-      end
+    end
      
 
     def update
@@ -44,6 +44,6 @@ class UsersController < ApplicationController
         # JWTのエンコード処理。ここでは 'my_secret_key' と 'HS256' アルゴリズムを使用していますが、
         # これは例であり、実際の実装では適切なシークレットキーやアルゴリズムを選択してください。
         JWT.encode(payload, 'my_secret_key', 'HS256')
-      end
+    end
 end
 
