@@ -17,7 +17,7 @@ Docker の場合は以下のようなポート設定になっています。
 | 3000 | Next.js | frontend-next |
 | 5432 | PostgreSQL | db-posgres |
 
-# DB 構造
+# DB のスキーマ
 
 ### User Table
 
