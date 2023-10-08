@@ -3,6 +3,7 @@ import React from "react";
 import { Button, Card, CardBody, CardHeader, Input } from "@nextui-org/react";
 import { AiFillEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useRouter } from "next/navigation";
+import axios from "@/lib/axios";
 
 const Login = () => {
   const router = useRouter();
@@ -12,23 +13,25 @@ const Login = () => {
 
   const handleSubmit = async () => {
     try {
-      const res = await fetch("http://localhost:3001/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!res.ok) {
-        throw new Error(`HTTP error! Status: ${res.status}`);
-      }
-
-      const data = await res.json();
+      const reqBody = {
+        email: email,
+        password: password,
+      };
+      const res = await axios.post("/auth/login", reqBody);
+      const data = res.data;
       console.log(data);
       router.push("/home");
-    } catch (err) {
-      console.log(err);
+    } catch (err: any) {
+      if (err.response) {
+        const serverError =
+          err.response.data?.error ||
+          `HTTP error! Status: ${err.response.status}`;
+        console.error(serverError);
+        alert(serverError);
+      } else {
+        console.error(err.message || "An unknown error occurred.");
+        alert(err.message);
+      }
     }
   };
 

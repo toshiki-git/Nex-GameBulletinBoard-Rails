@@ -16,3 +16,14 @@ Docker の場合は以下のようなポート設定になっています。
 | 3001 | Rails | backend-rails |
 | 3000 | Next.js | frontend-next |
 | 5432 | PostgreSQL | db-posgres |
+
+# DB のスキーマ
+
+### User Table
+
+- **id**: bigint
+- **username**: character varying
+- **email**: character varying
+- **password_digest**: character varying
+- **created_at**: timestamp without time zone
+- **updated_at**: timestamp without time zone
