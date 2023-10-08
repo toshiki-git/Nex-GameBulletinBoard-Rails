@@ -1,0 +1,107 @@
+$header_height_sm: 52px;
+
+.header {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: left;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: $header_height_sm;
+    z-index: 9999;
+
+    &__items {
+        display: none;
+    }
+
+    &__icon {
+        display: flex;
+        padding: 0px 12px;
+
+        &__pc {
+            display: none;
+        }
+    }
+}
+
+@media (min-width: 550px) {
+    .header {
+        width: 80px;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: space-between;
+
+        &__items {
+            display: block;
+            width: 48px;
+
+            .headerItem {
+                width: 100%;
+                height: 48px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &__name {
+                    display: none;
+                }
+            }
+        }
+
+        &__icon__sm {
+            width: 38px !important;
+            height: 38px !important;
+
+            img {
+                width: 38px;
+                height: 38px;
+            }
+        }
+    }
+}
+
+@media (min-width: 1280px) {
+    .header {
+        width: 240px;
+
+        &__items {
+            width: 100%;
+            padding: 0px 12px;
+
+            .headerItem {
+                justify-content: left;
+                width: 100%;
+
+                a {
+                    display: flex;
+                }
+
+                &__icon {
+                    padding-left: 12px;
+                }
+
+                &__name {
+                    display: block;
+                }
+            }
+        }
+
+        &__icon {
+            width: 100%;
+            display: block;
+
+            &__sm {
+                display: none !important;
+            }
+
+            &__pc {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                user-select: none;
+                cursor: pointer;
+            }
+        }
+    }
+}
