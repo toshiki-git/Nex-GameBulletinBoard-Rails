@@ -15,12 +15,19 @@ const SignUp = () => {
 
   const handleSubmit = async () => {
     try {
-      const res = await fetch("http://localhost:3001/auth/login", {
+      const res = await fetch("http://localhost:3001/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({
+          user: {
+            username: userName,
+            email: email,
+            password: password,
+            password_confirmation: passwordConf,
+          },
+        }),
       });
 
       if (!res.ok) {
@@ -29,7 +36,7 @@ const SignUp = () => {
 
       const data = await res.json();
       console.log(data);
-      router.push("/home");
+      //router.push("/####  ここにパスを入れる  ####");
     } catch (err) {
       console.log(err);
     }
