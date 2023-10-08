@@ -1,5 +1,5 @@
 "use client";
-import React, { use } from "react";
+import React from "react";
 import { Button, Card, CardBody, CardHeader, Input } from "@nextui-org/react";
 import { AiFillEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useRouter } from "next/navigation";
@@ -9,14 +9,6 @@ const Login = () => {
   const [isVisible, setIsVisible] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
 
   const handleSubmit = async () => {
     try {
@@ -56,13 +48,15 @@ const Login = () => {
               variant="bordered"
               placeholder="Enter your email"
               className="max-w-xs mb-4"
-              onChange={handleEmailChange}
+              value={email}
+              onValueChange={setEmail}
             />
             <Input
               label="Password"
               variant="bordered"
               placeholder="Enter your password"
-              onChange={handlePasswordChange}
+              value={password}
+              onValueChange={setPassword}
               endContent={
                 <button
                   className="focus:outline-none"
