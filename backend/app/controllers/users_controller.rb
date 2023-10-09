@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-    #skip_before_action :authenticate_request, only: [:create]
+    skip_before_action :authenticate_request, only: [:create]
+
     def index
         @users = User.all
         render json: @users
@@ -14,14 +15,13 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
         
         if @user.save
-          token = encode_token({ user_id: @user.id })
+          token = JwtService.encode({ user_id: @user.id })
           render json: { user: @user, token: token }, status: :created
         else
           render json: @user.errors, status: :unprocessable_entity
         end
     end
      
-
     def update
         @user = User.find params[:id]
         @user.update user_params
@@ -34,17 +34,30 @@ class UsersController < ApplicationController
         render json: @user
     end
 
-    private
+    def me
+        token = cookies.signed[:user_token]
+        return render json: { error: 'Token is missing' }, status: :unauthorized unless token
 
-    # Strong Parametersを使用して、許可されたパラメータのみを使用します
-    def user_params
-        params.require(:user).permit(:username, :email, :password, :password_confirmation)
+        decoded_payload = JwtService.decode(token)
+        return render json: { error: 'Invalid token' }, status: :unauthorized unless decoded_payload
+
+        user_id = decoded_payload['user_id']
+        @user = User.find_by(id: user_id)
+        if @user
+            render json: @user
+        else
+            render json: { error: 'User not found' }, status: :not_found
+        end
     end
 
-    def encode_token(payload)
-        # JWTのエンコード処理。ここでは 'my_secret_key' と 'HS256' アルゴリズムを使用していますが、
-        # これは例であり、実際の実装では適切なシークレットキーやアルゴリズムを選択してください。
-        JWT.encode(payload, 'my_secret_key', 'HS256')
+    def current
+        render json: @current_user
+    end
+
+    private
+
+    def user_params
+        params.require(:user).permit(:username, :email, :password, :password_confirmation)
     end
 end
 
