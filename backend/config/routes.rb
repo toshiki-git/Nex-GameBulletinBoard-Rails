@@ -6,8 +6,9 @@ Rails.application.routes.draw do
 
   post 'auth/login', to: 'auth#login'
   
-  # CRUD operations for users
+  # CRUD operations
   resources :users
+  resources :posts
 
   # 例: 特定のコントローラアクションだけをルーティングしたい場合
   # resources :users, only: [:index, :show, :create, :update, :destroy]
