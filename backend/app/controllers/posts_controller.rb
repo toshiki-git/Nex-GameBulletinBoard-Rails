@@ -1,6 +1,12 @@
 class PostsController < ApplicationController
     def index
-        posts = Post.all
+        posts = Post.all.map do |post|
+            if post.image.attached?
+                post.as_json.merge(image_url: rails_blob_url(post.image))
+            else
+                post.as_json
+            end
+        end
         render json: posts
     end
 
