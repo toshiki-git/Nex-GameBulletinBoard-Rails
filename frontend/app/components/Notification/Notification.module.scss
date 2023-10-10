@@ -1,0 +1,27 @@
+.notificationItem {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 550px) {
+    .notificationItem {
+        max-width: 350px;
+    }
+}
+
+@media (min-width: 850px) {
+    .notificationItem {
+        max-width: 550px;
+    }
+}
+
+.notificationIcon {
+    @media (max-width: 900px) {
+        transform: translate(120px);
+    }
+
+    @media (max-width: 550px) {
+        transform: translate(25px, 40px);
+    }
+}
