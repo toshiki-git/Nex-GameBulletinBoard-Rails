@@ -11,7 +11,7 @@ const PostList = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("/posts", {
+        const response = await axios.get("/posts/", {
           params: {
             limit: 10,
             offset: 0,
