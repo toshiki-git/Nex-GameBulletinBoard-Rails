@@ -3,7 +3,13 @@ import { UserType } from "@/lib/types";
 import axios from "@/lib/axios";
 
 const useGetMe = () => {
-  const [userData, setUserData] = useState<UserType>({});
+  const initialUser: UserType = {
+    id: -1,
+    username: "",
+    email: "",
+    password_digest: "",
+  };
+  const [userData, setUserData] = useState<UserType>(initialUser);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
