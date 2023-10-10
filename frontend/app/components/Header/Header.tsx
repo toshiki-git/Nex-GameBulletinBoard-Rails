@@ -40,7 +40,7 @@ const headerItemList = [
     id: 2,
     name: "通知",
     icon: <BsBellFill />,
-    url: "/notifications",
+    url: "/notification",
   },
   {
     id: 3,
