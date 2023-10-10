@@ -3,8 +3,11 @@ import React, { useRef, useState } from "react";
 import { Button, Textarea } from "@nextui-org/react";
 import { BsFillImageFill } from "react-icons/bs";
 import postAreaCSS from "./PostArea.module.scss";
+import useGetMe from "@/app/hooks/UserMe";
+import axios from "@/lib/axios";
 
 const PostArea: React.FC = () => {
+  const { userData } = useGetMe();
   const [content, setContent] = useState<string>("");
   const [hashtags, setHashtags] = useState<string>("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -24,7 +27,44 @@ const PostArea: React.FC = () => {
     setSelectedImage(file);
   };
 
-  const handlePost = async () => {};
+  const handlePost = async () => {
+    // content と hashtags のバリデーション
+    if (!content || !hashtags) {
+      alert("投稿内容とハッシュタグは必須です。");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("post[user_id]", userData.id.toString());
+      formData.append("post[content]", content);
+      formData.append("post[hashtags]", hashtags);
+      if (selectedImage) {
+        formData.append("post[image]", selectedImage);
+      }
+
+      axios.post("/posts/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      alert("投稿が完了しました。");
+      setContent("");
+      setHashtags("");
+      setSelectedImage(null);
+    } catch (err: any) {
+      if (err.response) {
+        const serverError =
+          err.response.data?.error ||
+          `HTTP error! Status: ${err.response.status}`;
+        console.error(serverError);
+        alert(serverError);
+      } else {
+        console.error(err.message || "An unknown error occurred.");
+        alert(err.message);
+      }
+    }
+  };
 
   return (
     <div className={`${postAreaCSS.postArea} bg-overlay p-4 rounded-md`}>
