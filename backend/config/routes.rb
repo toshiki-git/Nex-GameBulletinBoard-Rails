@@ -11,7 +11,11 @@ Rails.application.routes.draw do
 
   # CRUD operations
   resources :users
-  resources :posts
+  resources :posts do
+    collection do
+      get :search
+    end
+  end
 
   # 例: 特定のコントローラアクションだけをルーティングしたい場合
   # resources :users, only: [:index, :show, :create, :update, :destroy]

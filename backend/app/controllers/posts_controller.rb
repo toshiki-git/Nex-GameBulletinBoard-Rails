@@ -41,6 +41,27 @@ class PostsController < ApplicationController
         render json: post
     end
 
+    def search
+        query = params[:query]
+        posts = if query.present?
+                  Post.where('content LIKE ? OR hashtags LIKE ?', "%#{query}%", "%#{query}%")
+                else
+                  Post.all
+                end
+      
+        posts = posts.map do |post|
+          if post.image.attached?
+            post.as_json.merge(image_url: rails_blob_url(post.image))
+          else
+            post.as_json
+          end
+        end
+      
+        render json: posts
+    end
+      
+
+
     private
     def post_params
         params.require(:post).permit(:user_id, :content, :hashtags, :image)
