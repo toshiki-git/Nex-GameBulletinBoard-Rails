@@ -1,8 +1,10 @@
-export interface UserType {
+export interface UserDataType {
   id: number;
   username: string;
   email: string;
   password_digest: string;
+  image_url: string;
+  created_at: string;
 }
 
 export interface PostType {
@@ -11,4 +13,9 @@ export interface PostType {
   content: string;
   hashtags: string;
   image_url: string;
+}
+
+export interface ProfileType {
+  birthday: string;
+  user: UserDataType;
 }
