@@ -1,0 +1,45 @@
+.content,
+.hashtag {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 550px) {
+    .content,
+    .hashtag {
+        transform: translateY(40px);
+    }
+
+    .content {
+        margin-bottom: 50px;
+    }
+}
+
+.input {
+    width: 100%;
+    max-width: 550px;
+}
+
+@media (max-width: 900px) {
+    .input {
+        max-width: 450px;
+    }
+}
+
+@media (max-width: 750px) {
+    .input {
+        max-width: 250px;
+    }
+}
+
+.searchIcon {
+    @media (max-width: 900px) {
+        transform: translate(120px);
+    }
+
+    @media (max-width: 550px) {
+        transform: translate(25px, 40px);
+    }
+}
