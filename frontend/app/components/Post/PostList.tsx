@@ -1,33 +1,41 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import axios from "@/lib/axios";
 import PostDisplay from "./PostDisplay";
 import Link from "next/link";
+import { PostType } from "@/lib/types";
 
-const PostList = () => {
-  const [posts, setPosts] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+interface PostListProps {
+  results?: PostType[];
+}
+
+const PostList: React.FC<PostListProps> = ({ results }) => {
+  const [posts, setPosts] = useState<PostType[]>(results || []);
+  const [isLoading, setIsLoading] = useState<boolean>(!results);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get("/posts/", {
-          params: {
-            limit: 10,
-            offset: 0,
-          },
-        });
-        setPosts(response.data);
-      } catch (err) {
-        setError("データの取得に失敗しました。");
-        console.error("Error fetching posts:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    if (!results) {
+      const fetchPosts = async () => {
+        try {
+          const response = await axios.get("/posts/", {
+            params: {
+              limit: 10,
+              offset: 0,
+            },
+          });
+          setPosts(response.data);
+        } catch (err) {
+          setError("データの取得に失敗しました。");
+          console.error("Error fetching posts:", err);
+        } finally {
+          setIsLoading(false);
+        }
+      };
 
-    fetchPosts();
-  }, []);
+      fetchPosts();
+    }
+  }, [results]);
 
   if (isLoading) return <p>ローディング中...</p>;
   if (error) return <p>{error}</p>;
@@ -35,7 +43,7 @@ const PostList = () => {
   return (
     <div>
       {posts.map((post) => (
-        <Link href={`/community/${post.post_id}`} key={post.post_id}>
+        <Link href={`/community/${post.id}`} key={post.id}>
           <PostDisplay
             content={post.content}
             hashtags={post.hashtags}
