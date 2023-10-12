@@ -1,0 +1,24 @@
+.profArea {
+  width: 100%;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 550px) {
+  .profArea {
+    max-width: 350px;
+  }
+}
+
+@media (min-width: 850px) {
+  .profArea {
+    max-width: 550px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .profArea {
+    max-width: 800px;
+  }
+}
