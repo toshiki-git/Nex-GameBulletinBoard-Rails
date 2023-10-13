@@ -10,7 +10,11 @@ Rails.application.routes.draw do
   get '/users/me', to: 'users#me'
 
   # CRUD operations
-  resources :users
+  resources :users do
+    member do
+      post :"upload_image"
+    end
+  end
   resources :posts do
     collection do
       get :search
