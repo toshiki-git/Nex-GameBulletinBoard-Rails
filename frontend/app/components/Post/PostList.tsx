@@ -18,7 +18,7 @@ const PostList: React.FC<PostListProps> = ({ results }) => {
     if (!results) {
       const fetchPosts = async () => {
         try {
-          const response = await axios.get("/posts/", {
+          const response = await axios.get("/posts/my_posts", {
             params: {
               limit: 10,
               offset: 0,
