@@ -1,16 +1,22 @@
 import React from "react";
 import postAreaCSS from "./PostArea.module.scss";
 import { Avatar } from "@nextui-org/react";
-import useGetMe from "@/app/hooks/UserMe";
+import useGetUser from "@/app/hooks/UseGetUser";
 
 interface PostProps {
   content: string;
   hashtags: string;
   image?: string;
+  userId: number;
 }
 
-const PostDisplay: React.FC<PostProps> = ({ content, hashtags, image }) => {
-  const { userData } = useGetMe();
+const PostDisplay: React.FC<PostProps> = ({
+  content,
+  hashtags,
+  image,
+  userId,
+}) => {
+  const { userData } = useGetUser({ id: userId });
   return (
     <div
       className={`${postAreaCSS.postDisplay} bg-overlay p-4 rounded-md mt-4`}

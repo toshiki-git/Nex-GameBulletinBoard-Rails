@@ -1,9 +1,10 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import axios from "@/lib/axios";
 import PostDisplay from "./PostDisplay";
 import Link from "next/link";
 import { PostType } from "@/lib/types";
+import useGetUser from "@/app/hooks/UseGetUser";
 
 interface PostListProps {
   results?: PostType[];
@@ -48,6 +49,7 @@ const PostList: React.FC<PostListProps> = ({ results }) => {
             content={post.content}
             hashtags={post.hashtags}
             image={post.image_url}
+            userId={post.user_id}
           />
         </Link>
       ))}
