@@ -30,6 +30,7 @@ import MenuTab from "./HeaderItem";
 import AccoutModal from "./AccoutModal";
 
 import axios from "@/lib/axios";
+import useGetMe from "@/app/hooks/UserMe";
 
 const headerItemList = [
   {
@@ -74,7 +75,7 @@ const HeaderItem = () => {
 const Header = () => {
   const { theme, setTheme } = useTheme();
   //const switchTheme = useSwitchTheme();
-  //const { userData } = useGetMe();
+  const { userData } = useGetMe();
   const {
     isOpen: isAccountModalOpen,
     onOpen: openAccountModal,
@@ -105,21 +106,22 @@ const Header = () => {
               className={`${headerCSS.header__icon__pc} rounded-lg my-2 py-2 px-3 hover:bg-white/[.06]`}
             >
               <User
-                name="Your Name1" /* {userData.display_name} */
+                name={userData.username}
                 classNames={{
                   wrapper: "pl-3",
                   description: "text-primary",
                 }}
-                description="Your Name2" /* {`@${userData.username}`} */
+                description={`@${userData.username}`}
                 avatarProps={{
-                  src: "https://avatars.githubusercontent.com/u/30373425?v=4",
+                  src: userData.image_url,
+                  name: "",
                 }}
               />
               <GrMoreVertical size={20} />
             </div>
             <Avatar
               className={`my-2 w-8 h-8 ${headerCSS.header__icon__sm}`}
-              src="https://avatars.githubusercontent.com/u/30373425?v=4"
+              src={userData.image_url}
               size="md"
             />
           </div>

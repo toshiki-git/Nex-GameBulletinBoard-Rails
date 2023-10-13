@@ -8,6 +8,7 @@ const Prof = () => {
   return (
     <div>
       <ProfItem user={userData} birthday="2000/01/01" />
+      <div>{userData.image_url}</div>
     </div>
   );
 };

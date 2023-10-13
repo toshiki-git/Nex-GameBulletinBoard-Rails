@@ -17,7 +17,7 @@ const PostDisplay: React.FC<PostProps> = ({ content, hashtags, image }) => {
     >
       <div className="post-header flex flex-wrap items-center pb-5">
         <div className="post-avatar pr-4">
-          <Avatar src="https://avatars.githubusercontent.com/u/30373425?v=4" />
+          <Avatar src={userData.image_url} />
         </div>
         <div className="post-header-name flex flex-wrap items-center">
           <h3 className="font-bold pr-4">{userData.username}</h3>
