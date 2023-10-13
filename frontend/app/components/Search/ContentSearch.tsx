@@ -1,5 +1,5 @@
 "use client";
-import React, { SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import SearchCSS from "./Search.module.scss";
 import axios from "@/lib/axios";
 import { PostType } from "@/lib/types";
