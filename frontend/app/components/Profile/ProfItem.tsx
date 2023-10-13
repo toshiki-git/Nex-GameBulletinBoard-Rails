@@ -3,12 +3,13 @@ import { LiaBirthdayCakeSolid } from "react-icons/lia";
 import PostList from "../Post/PostList";
 import ProfCSS from "./Prof.module.scss";
 import { ProfileType } from "@/lib/types";
+import { Avatar } from "@nextui-org/react";
 
 const ProfItem = ({ user, birthday }: ProfileType) => (
   <div className={`${ProfCSS.profArea}`}>
     <div className="flex flex-col  space-y-4 pb-4 border-b-1 pt-20">
       <div className="h-20">
-        <img src={user.image_url} className="rounded-full h-20" />
+        <Avatar className="w-20 h-20 text-large" src={user.image_url} />
       </div>
 
       <div className="items-center">
