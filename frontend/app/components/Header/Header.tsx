@@ -29,6 +29,8 @@ import headerCSS from "./Header.module.scss";
 import MenuTab from "./HeaderItem";
 import AccoutModal from "./AccoutModal";
 
+import axios from "@/lib/axios";
+
 const headerItemList = [
   {
     id: 1,
@@ -79,11 +81,17 @@ const Header = () => {
     onClose: closeAccountModal,
   } = useDisclosure();
 
-  const {
-    isOpen: isLogoutModalOpen,
-    onOpen: openLogoutModal,
-    onClose: closeLogoutModal,
-  } = useDisclosure();
+  const handleLogout = () => {
+    axios
+      .delete("/auth/logout")
+      .then((res) => {
+        console.log(res);
+        location.href = "/login";
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <header className={`${headerCSS.header} bg-overlay border-slate-600`}>
@@ -138,7 +146,7 @@ const Header = () => {
           </DropdownItem>
           <DropdownItem
             key="delete"
-            onPress={openLogoutModal}
+            onPress={handleLogout}
             className="text-danger"
             color="danger"
             startContent={<TbLogout2 />}
