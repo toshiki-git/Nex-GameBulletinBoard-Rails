@@ -21,11 +21,7 @@ const useGetMe = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get("/users/me");
-        const modifiedData = {
-          ...response.data,
-          image_url: "https://avatars.githubusercontent.com/u/30373425?v=4L",
-        };
-        setUserData(modifiedData);
+        setUserData(response.data);
         setIsLoading(false);
       } catch (err) {
         setError("Failed to retrieve user data");
