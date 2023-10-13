@@ -12,6 +12,12 @@ class AuthController < ApplicationController
       render json: { error: 'Invalid credentials' }, status: :unauthorized
     end
   end
+
+  def logout
+    # クッキーからトークンを削除
+    cookies.delete(:user_token)
+    render json: { status: 'logged out' }, status: :ok
+  end
 end
 
   
