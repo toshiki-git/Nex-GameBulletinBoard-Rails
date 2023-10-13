@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root "user#index"
 
   post 'auth/login', to: 'auth#login'
+  delete 'auth/logout', to: 'auth#logout'
   
   # Place this above the resources :users line
   get '/users/me', to: 'users#me'
