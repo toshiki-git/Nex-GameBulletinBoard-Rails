@@ -1,16 +1,16 @@
 "use client";
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "@/lib/axios";
 import PostDisplay from "./PostDisplay";
 import Link from "next/link";
 import { PostType } from "@/lib/types";
-import useGetUser from "@/app/hooks/UseGetUser";
 
 interface PostListProps {
   results?: PostType[];
+  newPost?: PostType; // 追加された行
 }
 
-const PostList: React.FC<PostListProps> = ({ results }) => {
+const PostList: React.FC<PostListProps> = ({ results, newPost }) => {
   const [posts, setPosts] = useState<PostType[]>(results || []);
   const [isLoading, setIsLoading] = useState<boolean>(!results);
   const [error, setError] = useState<string | null>(null);
@@ -19,13 +19,8 @@ const PostList: React.FC<PostListProps> = ({ results }) => {
     if (!results) {
       const fetchPosts = async () => {
         try {
-          const response = await axios.get("/posts/my_posts", {
-            params: {
-              limit: 10,
-              offset: 0,
-            },
-          });
-          setPosts(response.data);
+          const response = await axios.get("/posts/my_posts");
+          setPosts(response.data.reverse());
         } catch (err) {
           setError("データの取得に失敗しました。");
           console.error("Error fetching posts:", err);
@@ -37,6 +32,12 @@ const PostList: React.FC<PostListProps> = ({ results }) => {
       fetchPosts();
     }
   }, [results]);
+
+  useEffect(() => {
+    if (newPost) {
+      setPosts((prevPosts) => [newPost, ...prevPosts]);
+    }
+  }, [newPost]);
 
   if (isLoading) return <p>ローディング中...</p>;
   if (error) return <p>{error}</p>;
