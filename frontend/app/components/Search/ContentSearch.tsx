@@ -16,8 +16,8 @@ const ContentSearch: React.FC<ContentSearchProps> = ({
   const [content, setContent] = useState("");
 
   const handleSearch = async () => {
+    setShowResults(false);
     const res = await axios.get(`posts/search?query=${content}`);
-    console.log(res.data);
     setSearchResults(res.data);
     setShowResults(true);
   };

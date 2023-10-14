@@ -6,7 +6,11 @@ import postAreaCSS from "./PostArea.module.scss";
 import useGetMe from "@/app/hooks/UserMe";
 import axios from "@/lib/axios";
 
-const PostArea: React.FC = () => {
+interface PostAreaProps {
+  onNewPost?: (post: any) => void;
+}
+
+const PostArea: React.FC<PostAreaProps> = ({ onNewPost }) => {
   const { userData } = useGetMe();
   const [content, setContent] = useState<string>("");
   const [hashtags, setHashtags] = useState<string>("");
@@ -43,11 +47,14 @@ const PostArea: React.FC = () => {
         formData.append("post[image]", selectedImage);
       }
 
-      axios.post("/posts/", formData, {
+      const response = await axios.post("/posts/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
+      if (onNewPost) {
+        onNewPost(response.data);
+      }
       alert("投稿が完了しました。");
       setContent("");
       setHashtags("");
