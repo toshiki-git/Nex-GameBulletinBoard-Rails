@@ -24,10 +24,14 @@ const SignUp = () => {
       },
     };
 
+    const reqLogin = {
+      email: email,
+      password: password,
+    };
+
     try {
-      const res = await axios.post("/users", reqBody);
-      const data = res.data;
-      console.log(data);
+      await axios.post("/users", reqBody);
+      await axios.post("/auth/login", reqLogin);
       router.push("/home");
     } catch (err: any) {
       if (err.response) {
