@@ -93,6 +93,14 @@ const Header = () => {
         console.log(err);
       });
   };
+  const maxLength = 17;
+
+  const formatEmail = (email: string) => {
+    if (email.length > maxLength) {
+      return email.slice(0, maxLength) + "...";
+    }
+    return email;
+  };
 
   return (
     <header className={`${headerCSS.header} bg-overlay border-slate-600`}>
@@ -111,7 +119,7 @@ const Header = () => {
                   wrapper: "pl-3",
                   description: "text-primary",
                 }}
-                description={`@${userData.username}`}
+                description={`${formatEmail(userData.email)}`}
                 avatarProps={{
                   src: userData.image_url,
                   name: "",

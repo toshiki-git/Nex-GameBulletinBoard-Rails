@@ -7,8 +7,7 @@ const Prof = () => {
   const { userData } = useGetMe();
   return (
     <div>
-      <ProfItem user={userData} birthday="2000/01/01" />
-      <div>{userData.image_url}</div>
+      <ProfItem user={userData} />
     </div>
   );
 };

@@ -25,9 +25,9 @@ const PostDisplay: React.FC<PostProps> = ({
         <div className="post-avatar pr-4">
           <Avatar src={userData.image_url} />
         </div>
-        <div className="post-header-name flex flex-wrap items-center">
+        <div className="post-header-name items-center">
           <h3 className="font-bold pr-4">{userData.username}</h3>
-          <span className="font-thin text-sm">{`@${userData.username}`}</span>
+          <div className="font-thin text-sm">{`${userData.email}`}</div>
         </div>
       </div>
       <div className="mb-2 text-foreground">

@@ -14,8 +14,3 @@ export interface PostType {
   hashtags: string;
   image_url: string;
 }
-
-export interface ProfileType {
-  birthday: string;
-  user: UserDataType;
-}
