@@ -1,11 +1,25 @@
 import React from "react";
-import { LiaBirthdayCakeSolid } from "react-icons/lia";
+import { SlCalender } from "react-icons/sl";
 import PostList from "../Post/PostList";
 import ProfCSS from "./Prof.module.scss";
-import { ProfileType } from "@/lib/types";
+import { UserDataType } from "@/lib/types";
 import { Avatar } from "@nextui-org/react";
 
-const ProfItem = ({ user, birthday }: ProfileType) => (
+type ProfItemProps = {
+  user: UserDataType;
+};
+
+function formatDate(isoString: string) {
+  const date = new Date(isoString);
+
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // getMonthは0から11の値を返すため、1を足す
+  const day = date.getDate();
+
+  return `${year}年${month}月${day}日`;
+}
+
+const ProfItem: React.FC<ProfItemProps> = ({ user }) => (
   <div className={`${ProfCSS.profArea}`}>
     <div className="flex flex-col  space-y-4 pb-4 border-b-1 pt-20">
       <div className="h-20">
@@ -14,11 +28,13 @@ const ProfItem = ({ user, birthday }: ProfileType) => (
 
       <div className="items-center">
         <div className="text-xl font-bold">{user.username}</div>
-        <div className="text-sm text-slate-400">@{user.username}</div>
+        <div className="text-sm text-slate-400">{user.email}</div>
       </div>
       <div className="flex items-center">
-        <LiaBirthdayCakeSolid size={20} />
-        <div className="text-sm">誕生日:{birthday}</div>
+        <SlCalender size={15} /> &nbsp;
+        <div className="text-sm">
+          {formatDate(user.created_at)}からNexを利用しています
+        </div>
       </div>
       <p className="pt-10">過去の投稿</p>
     </div>
