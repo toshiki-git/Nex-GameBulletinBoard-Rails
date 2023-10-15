@@ -1,9 +1,9 @@
 import React from "react";
 import { SlCalender } from "react-icons/sl";
-import PostList from "../Post/PostList";
 import ProfCSS from "./Prof.module.scss";
 import { UserDataType } from "@/lib/types";
 import { Avatar } from "@nextui-org/react";
+import MyPostList from "../Post/MyPostList";
 
 type ProfItemProps = {
   user: UserDataType;
@@ -38,7 +38,7 @@ const ProfItem: React.FC<ProfItemProps> = ({ user }) => (
       </div>
       <p className="pt-10">過去の投稿</p>
     </div>
-    <PostList />
+    <MyPostList />
   </div>
 );
 
