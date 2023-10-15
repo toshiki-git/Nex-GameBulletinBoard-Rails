@@ -13,11 +13,11 @@ const ContentSearch: React.FC<ContentSearchProps> = ({
   setShowResults,
   setSearchResults,
 }) => {
-  const [content, setContent] = useState("");
+  const [query, setQuery] = useState("");
 
   const handleSearch = async () => {
     setShowResults(false);
-    const res = await axios.get(`posts/search?query=${content}`);
+    const res = await axios.get(`posts/search?query=${query}`);
     setSearchResults(res.data);
     setShowResults(true);
   };
@@ -26,9 +26,9 @@ const ContentSearch: React.FC<ContentSearchProps> = ({
     <div className={`${SearchCSS.content}`}>
       <input
         type="text"
-        value={content}
+        value={query}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setContent(e.target.value)
+          setQuery(e.target.value)
         }
         placeholder="検索..."
         className={`${SearchCSS.input} p-2 border border-foreground rounded bg-overlay`}
