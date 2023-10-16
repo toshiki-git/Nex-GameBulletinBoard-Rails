@@ -11,12 +11,15 @@ const PostList = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [postsCount, setPostsCount] = useState<number>(0);
+  const pagination = 10;
 
   useEffect(() => {
     const fetchMyPosts = async () => {
       try {
         const response = await axios.get(`/posts/my_posts?page=${currentPage}`);
-        setPosts(response.data);
+        setPosts(response.data.posts);
+        setPostsCount(response.data.total_posts);
       } catch (err) {
         setError("データの取得に失敗しました。");
         console.error("Error fetching posts:", err);
@@ -47,7 +50,7 @@ const PostList = () => {
         <div className="flex justify-center w-full">
           <Pagination
             showControls
-            total={10}
+            total={Math.ceil(postsCount / pagination)}
             color="secondary"
             page={currentPage}
             onChange={setCurrentPage}
