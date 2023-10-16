@@ -4,7 +4,7 @@ import PostDisplay from "./PostDisplay";
 import Link from "next/link";
 import { PostType } from "@/lib/types";
 import axios from "@/lib/axios";
-import { Pagination } from "@nextui-org/react";
+import { Card, CardBody, Pagination, Spinner } from "@nextui-org/react";
 
 interface SearchPostListProps {
   query: string;
@@ -12,11 +12,14 @@ interface SearchPostListProps {
 
 const SearchPostList: React.FC<SearchPostListProps> = ({ query }) => {
   const [posts, setPosts] = useState<PostType[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsCount, setPostsCount] = useState<number>(1);
   const pagination = 10;
 
   useEffect(() => {
+    setIsLoading(true);
     setCurrentPage(1);
     const fetchPosts = async () => {
       try {
@@ -26,7 +29,10 @@ const SearchPostList: React.FC<SearchPostListProps> = ({ query }) => {
         setPosts(response.data.posts);
         setPostsCount(response.data.total_posts);
       } catch (error) {
+        setError("データの取得に失敗しました。");
         console.error("An error occurred while fetching the posts:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -39,6 +45,7 @@ const SearchPostList: React.FC<SearchPostListProps> = ({ query }) => {
   }, [query]);
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchPosts = async () => {
       try {
         const response = await axios.get(
@@ -47,7 +54,10 @@ const SearchPostList: React.FC<SearchPostListProps> = ({ query }) => {
         setPosts(response.data.posts);
         setPostsCount(response.data.total_posts);
       } catch (error) {
+        setError("データの取得に失敗しました。");
         console.error("An error occurred while fetching the posts:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -58,6 +68,32 @@ const SearchPostList: React.FC<SearchPostListProps> = ({ query }) => {
       setPosts([]); // Clear posts if query is empty
     }
   }, [currentPage]);
+
+  if (posts.length === 0 && query) {
+    return (
+      <Card className="mt-3">
+        <CardBody>
+          <p>「{query}」の検索結果は見つかりませんでした。</p>
+        </CardBody>
+      </Card>
+    );
+  } else if (posts.length === 0) {
+    return (
+      <Card className="mt-3">
+        <CardBody>
+          <p>ハッシュタグや内容で検索できます。</p>
+        </CardBody>
+      </Card>
+    );
+  }
+
+  if (isLoading)
+    return (
+      <div className="mt-3 flex justify-center">
+        <Spinner label="Loading..." color="primary" />
+      </div>
+    );
+  if (error) return <p>{error}</p>;
 
   return (
     <div>
