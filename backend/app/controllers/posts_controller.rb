@@ -1,9 +1,16 @@
 class PostsController < ApplicationController
 
     def index
-        posts = Post.all.map { |post| post_attributes(post) }
-        render json: posts
+        posts_per_page = 10
+        posts = Post.order(created_at: :desc).page(params[:page]).per(posts_per_page)
+        total_posts = Post.count
+        render json: {
+            total_posts: total_posts,
+            posts: posts.map { |post| post_attributes(post) }
+        }
     end
+    
+    
 
     def show
         post = Post.find params[:id]
@@ -34,18 +41,26 @@ class PostsController < ApplicationController
 
     def search
         query = params[:query]
-        posts = if query.present?
-                  Post.where('content LIKE ? OR hashtags LIKE ?', "%#{query}%", "%#{query}%")
-                else
-                  Post.all
-                end
-      
-        render json: posts.map { |post| post_attributes(post) }
+        posts_per_page = 10
+    
+        if query.present?
+            all_posts = Post.where('content LIKE ? OR hashtags LIKE ?', "%#{query}%", "%#{query}%").order(created_at: :desc)
+            paginated_posts = all_posts.page(params[:page]).per(posts_per_page)
+    
+            render json: {
+                total_posts: all_posts.count,
+                posts: paginated_posts.map { |post| post_attributes(post) }
+            }
+        end
     end
+    
+    
+    
 
     def my_posts
         id = current_user.id
-        posts = Post.where(user_id: id)
+        posts_per_page = 10
+        posts = Post.where(user_id: id).order(created_at: :desc).page(params[:page]).per(posts_per_page)
         render json: posts.map { |post| post_attributes(post) }
     end
     
