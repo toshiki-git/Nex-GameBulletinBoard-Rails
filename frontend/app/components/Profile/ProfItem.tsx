@@ -28,7 +28,7 @@ const ProfItem: React.FC<ProfItemProps> = ({ user }) => (
 
       <div className="items-center">
         <div className="text-xl font-bold">{user.username}</div>
-        <div className="text-sm text-slate-400">{user.email}</div>
+        <div className="text-sm text-primary">{user.email}</div>
       </div>
       <div className="flex items-center">
         <SlCalender size={15} /> &nbsp;

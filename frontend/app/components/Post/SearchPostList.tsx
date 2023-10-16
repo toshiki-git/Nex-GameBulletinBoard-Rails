@@ -5,6 +5,7 @@ import Link from "next/link";
 import { PostType } from "@/lib/types";
 import axios from "@/lib/axios";
 import { Card, CardBody, Pagination, Spinner } from "@nextui-org/react";
+import postAreaCSS from "./PostArea.module.scss";
 
 interface SearchPostListProps {
   query: string;
@@ -12,16 +13,16 @@ interface SearchPostListProps {
 
 const SearchPostList: React.FC<SearchPostListProps> = ({ query }) => {
   const [posts, setPosts] = useState<PostType[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsCount, setPostsCount] = useState<number>(1);
   const pagination = 10;
 
   useEffect(() => {
-    setIsLoading(true);
-    setCurrentPage(1);
     const fetchPosts = async () => {
+      setIsLoading(true);
+      setCurrentPage(1);
       try {
         const response = await axios.get(
           `posts/search?query=${query}&page=${currentPage}`
@@ -45,8 +46,8 @@ const SearchPostList: React.FC<SearchPostListProps> = ({ query }) => {
   }, [query]);
 
   useEffect(() => {
-    setIsLoading(true);
     const fetchPosts = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get(
           `posts/search?query=${query}&page=${currentPage}`
@@ -69,9 +70,17 @@ const SearchPostList: React.FC<SearchPostListProps> = ({ query }) => {
     }
   }, [currentPage]);
 
+  if (isLoading)
+    return (
+      <div className="mt-3 flex justify-center">
+        <Spinner label="Loading..." color="primary" />
+      </div>
+    );
+  if (error) return <p>{error}</p>;
+
   if (posts.length === 0 && query) {
     return (
-      <Card className="mt-3">
+      <Card className={`${postAreaCSS.postDisplay} mt-3`}>
         <CardBody>
           <p>「{query}」の検索結果は見つかりませんでした。</p>
         </CardBody>
@@ -86,14 +95,6 @@ const SearchPostList: React.FC<SearchPostListProps> = ({ query }) => {
       </Card>
     );
   }
-
-  if (isLoading)
-    return (
-      <div className="mt-3 flex justify-center">
-        <Spinner label="Loading..." color="primary" />
-      </div>
-    );
-  if (error) return <p>{error}</p>;
 
   return (
     <div>

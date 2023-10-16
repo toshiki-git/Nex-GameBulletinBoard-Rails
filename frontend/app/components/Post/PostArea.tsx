@@ -1,6 +1,13 @@
 "use client";
 import React, { useRef, useState } from "react";
-import { Button, Textarea } from "@nextui-org/react";
+import {
+  Button,
+  Textarea,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+} from "@nextui-org/react";
 import { BsFillImageFill } from "react-icons/bs";
 import postAreaCSS from "./PostArea.module.scss";
 import useGetMe from "@/app/hooks/UserMe";
@@ -74,22 +81,28 @@ const PostArea: React.FC<PostAreaProps> = ({ onNewPost }) => {
   };
 
   return (
-    <div className={`${postAreaCSS.postArea} bg-overlay p-4 rounded-md`}>
-      <div className="text-xl text-foreground mb-4">投稿</div>
-      <div className="flex-1 rounded-md p-1 mb-2 text-foreground placeholder-focus">
+    <Card className={`${postAreaCSS.postArea} bg-overlay p-4 rounded-md mt-5`}>
+      <CardHeader className="text-xl text-foreground">投稿</CardHeader>
+
+      <CardBody>
         <Textarea
           minRows={1}
-          placeholder="#ハッシュタグ"
-          value={hashtags}
-          onChange={(e) => setHashtags(e.target.value)}
+          maxRows={2}
+          label="ハッシュタグ"
+          labelPlacement="outside"
+          placeholder="#ハッシュタグを入力してください"
+          onValueChange={(value) => setHashtags(value)}
         />
         <Textarea
-          placeholder="投稿内容"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
+          label="投稿内容"
+          labelPlacement="outside"
+          placeholder="投稿内容を入力してください"
+          minRows={4}
+          onValueChange={(value) => setContent(value)}
+          className="mt-4"
         />
-      </div>
-      <div className="mt-3 ml-2 flex justify-between items-center">
+      </CardBody>
+      <CardFooter className="flex justify-between items-center">
         <div className="flex items-center">
           <Button
             onClick={handleImageUpload}
@@ -97,6 +110,7 @@ const PostArea: React.FC<PostAreaProps> = ({ onNewPost }) => {
             color="warning"
             variant="faded"
             aria-label="画像をアップロード"
+            className="transition-transform duration-100 ease-in-out transform hover:scale-105"
           >
             <BsFillImageFill size={20} />
           </Button>
@@ -115,10 +129,15 @@ const PostArea: React.FC<PostAreaProps> = ({ onNewPost }) => {
           )}
         </div>
 
-        <Button color="primary" onClick={handlePost}>
+        <Button
+          color="primary"
+          onClick={handlePost}
+          radius="full"
+          className="transition-transform duration-100 ease-in-out transform hover:scale-105"
+        >
           投稿
         </Button>
-      </div>
+      </CardFooter>
       <input
         ref={fileInputRef}
         type="file"
@@ -126,7 +145,7 @@ const PostArea: React.FC<PostAreaProps> = ({ onNewPost }) => {
         accept="image/*"
         onChange={handleImageChange}
       />
-    </div>
+    </Card>
   );
 };
 

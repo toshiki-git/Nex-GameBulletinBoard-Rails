@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import SearchCSS from "./Search.module.scss";
 import SearchPostList from "../Post/SearchPostList";
+import { Button, Textarea } from "@nextui-org/react";
 
 const ContentSearch = () => {
   const [query, setQuery] = useState("");
@@ -14,21 +15,24 @@ const ContentSearch = () => {
   return (
     <div>
       <div className={`${SearchCSS.content}`}>
-        <input
-          type="text"
+        <Textarea
           value={query}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setQuery(e.target.value)
           }
           placeholder="検索..."
-          className={`${SearchCSS.input} p-2 border border-foreground rounded bg-overlay`}
+          minRows={1}
+          maxRows={1}
+          className={`${SearchCSS.input} `}
         />
-        <button
+        <Button
           onClick={handleSearch}
-          className="ml-2 p-2 bg-primary text-white rounded-full w-20"
+          color="primary"
+          radius="full"
+          className="transition-transform duration-100 ease-in-out transform hover:scale-105 ml-2"
         >
           検索
-        </button>
+        </Button>
       </div>
       <div>
         <SearchPostList query={activeQuery} />
