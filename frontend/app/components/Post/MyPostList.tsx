@@ -4,7 +4,7 @@ import axios from "@/lib/axios";
 import PostDisplay from "./PostDisplay";
 import Link from "next/link";
 import { PostType } from "@/lib/types";
-import { Pagination } from "@nextui-org/react";
+import { Card, CardBody, Pagination, Spinner } from "@nextui-org/react";
 
 const PostList = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -31,8 +31,24 @@ const PostList = () => {
     window.scrollTo(0, 0);
   }, [currentPage]);
 
-  if (isLoading) return <p>ローディング中...</p>;
+  if (isLoading)
+    return (
+      <div className="mt-3 flex justify-center">
+        <Spinner label="Loading..." color="primary" />
+      </div>
+    );
   if (error) return <p>{error}</p>;
+
+  // Check if there are no posts and render a message
+  if (posts.length === 0) {
+    return (
+      <Card className="mt-3">
+        <CardBody>
+          <p>投稿はまだありません。</p>
+        </CardBody>
+      </Card>
+    );
+  }
 
   return (
     <div>
