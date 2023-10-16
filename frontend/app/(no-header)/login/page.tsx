@@ -38,7 +38,7 @@ const Login = () => {
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-200">
+    <div className="flex justify-center items-center h-screen">
       <Card>
         <CardHeader>
           <h1>ログイン</h1>
