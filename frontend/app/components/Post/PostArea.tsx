@@ -132,6 +132,7 @@ const PostArea: React.FC<PostAreaProps> = ({ onNewPost }) => {
         <Button
           color="primary"
           onClick={handlePost}
+          radius="full"
           className="transition-transform duration-100 ease-in-out transform hover:scale-105"
         >
           投稿
