@@ -4,7 +4,7 @@ import axios from "@/lib/axios";
 import PostDisplay from "./PostDisplay";
 import Link from "next/link";
 import { PostType } from "@/lib/types";
-import { Pagination } from "@nextui-org/react";
+import { Pagination, Spinner } from "@nextui-org/react";
 
 interface PostListProps {
   newPost?: PostType;
@@ -42,7 +42,12 @@ const AllPostList: React.FC<PostListProps> = ({ newPost }) => {
     }
   }, [newPost]);
 
-  if (isLoading) return <p>ローディング中...</p>;
+  if (isLoading)
+    return (
+      <div className="mt-3 flex justify-center">
+        <Spinner label="Loading..." color="primary" />
+      </div>
+    );
   if (error) return <p>{error}</p>;
 
   return (
