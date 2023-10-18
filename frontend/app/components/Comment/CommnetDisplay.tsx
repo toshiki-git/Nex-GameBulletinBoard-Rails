@@ -1,6 +1,6 @@
 import React from "react";
 import { CommentDataType, UserDataType } from "@/lib/types";
-import { Card, CardHeader, User, CardBody } from "@nextui-org/react";
+import { Card, CardHeader, User, CardBody, Link } from "@nextui-org/react";
 import postAreaCSS from "@/app/components/Post/PostArea.module.scss";
 
 interface CommentDisplayProps {
@@ -13,25 +13,31 @@ const CommentDisplay: React.FC<CommentDisplayProps> = ({
   userData,
 }) => {
   // userDataオブジェクトから必要な情報を取得します。
-  const { username, email, image_url } = userData;
+  const { id, username, email, image_url } = userData;
 
   return (
     <Card
       className={`${postAreaCSS.postDisplay} bg-overlay p-5 rounded-md mt-4`}
     >
       <CardHeader className="flex flex-wrap">
-        <User
-          name={username} // 直接userDataから取得したユーザー名
-          classNames={{
-            wrapper: "pl-3",
-            description: "text-primary",
-          }}
-          description={email} // ユーザーのメールアドレス
-          avatarProps={{
-            src: image_url, // ユーザーの画像URL
-            name: "", // alt属性としてユーザー名を使用
-          }}
-        />
+        <Link
+          href={`/profiles/${id}`}
+          className="my-2 w-8 h-8 cursor-pointer hover:scale-110 transition-transform duration-200 transform"
+        >
+          <User
+            name={username}
+            classNames={{
+              wrapper: "pl-3",
+              description: "text-primary",
+              name: "text-foreground",
+            }}
+            description={email}
+            avatarProps={{
+              src: image_url,
+              name: "",
+            }}
+          />
+        </Link>
       </CardHeader>
       <CardBody>
         <div className="mb-2 text-foreground">
