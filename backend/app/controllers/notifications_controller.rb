@@ -3,15 +3,17 @@ class NotificationsController < ApplicationController
   def index
     @notifications = current_user.notifications.includes(:actor, :notifiable).order(created_at: :desc)
 
-    render json: @notifications.as_json(include: {
-      actor: { 
-        only: [:id],
-        methods: [:image_url]  # 'image_url'メソッドを結果に含める
-      },
-      notifiable: {
-        only: [:content]  # ここでコメントのテキスト内容のみを指定します。
-      }
-    })
+    render json: @notifications.map { |notification|
+      notification.as_json(include: {
+        actor: { 
+          only: [:id],
+          methods: [:image_url]  # 'image_url'メソッドを結果に含める
+        }
+      }).merge({
+        post_id: notification.notifiable.respond_to?(:post_id) ? notification.notifiable.post_id : nil,
+        content: notification.notifiable.respond_to?(:content) ? notification.notifiable.content : nil
+      })
+    }
   end
   
     def update

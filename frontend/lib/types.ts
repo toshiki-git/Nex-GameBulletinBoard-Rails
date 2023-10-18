@@ -35,4 +35,5 @@ export interface NotificationDataType {
   notifiable: {
     content: string;
   };
+  post_id: number;
 }
