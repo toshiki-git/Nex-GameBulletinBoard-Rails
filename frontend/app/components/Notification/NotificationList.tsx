@@ -31,8 +31,10 @@ const NotificationList = () => {
       {notifications.map((notification) => (
         <NotificationItem
           key={notification.id}
-          content={notification.notifiable.content}
+          content={notification.content}
           image_url={notification.actor.image_url}
+          user_id={notification.actor.id}
+          post_id={notification.post_id}
         />
       ))}
     </div>
