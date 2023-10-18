@@ -16,16 +16,15 @@ Rails.application.routes.draw do
       post :"upload_image"
     end
   end
+
   resources :posts do
+    resources :comments, only: [:create]
+
     collection do
       get :search
       get :my_posts
     end
   end
 
-  # 例: 特定のコントローラアクションだけをルーティングしたい場合
-  # resources :users, only: [:index, :show, :create, :update, :destroy]
-
-  # 例: 特定のコントローラアクションを除外してルーティングしたい場合
-  # resources :users, except: [:edit, :new]
+  get '/posts/:id/comments', to: 'comments#comments'
 end
