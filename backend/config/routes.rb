@@ -27,4 +27,6 @@ Rails.application.routes.draw do
   end
 
   get '/posts/:id/comments', to: 'comments#comments'
+
+  resources :notifications, only: [:index, :update]
 end

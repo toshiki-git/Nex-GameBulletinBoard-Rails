@@ -23,3 +23,16 @@ export interface CommentDataType {
   created_at: string;
   user: UserDataType;
 }
+
+export interface NotificationDataType {
+  id: number; // 通知のID
+  content: string; // 通知の本文や説明
+  user: UserDataType; // 通知をトリガーしたユーザー
+  actor: {
+    id: number;
+    image_url: string;
+  };
+  notifiable: {
+    content: string;
+  };
+}
