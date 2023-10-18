@@ -53,7 +53,7 @@ const PostList = () => {
   return (
     <div>
       {posts.map((post) => (
-        <Link href={`/community/${post.id}`} key={post.id}>
+        <Link href={`/posts/${post.id}`} key={post.id}>
           <PostDisplay
             content={post.content}
             hashtags={post.hashtags}

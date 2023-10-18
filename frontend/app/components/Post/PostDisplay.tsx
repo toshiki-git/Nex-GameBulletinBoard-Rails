@@ -1,13 +1,6 @@
 import React from "react";
 import postAreaCSS from "./PostArea.module.scss";
-import {
-  Avatar,
-  Card,
-  CardBody,
-  CardHeader,
-  Image,
-  User,
-} from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Image, User } from "@nextui-org/react";
 import useGetUser from "@/app/hooks/UseGetUser";
 
 interface PostProps {
