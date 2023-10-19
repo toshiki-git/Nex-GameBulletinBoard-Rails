@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "@/lib/axios";
 import { UserDataType } from "@/lib/types";
 import { Spinner } from "@nextui-org/react";
-import ProfItem from "@/app/components/Profile/ProfItem";
+import OtherProfItem from "@/app/components/Profile/OtherProfItem";
 
 const Profiles = ({ params }: { params: { id: string } }) => {
   const [user, setUser] = useState<UserDataType>({} as UserDataType);
@@ -36,7 +36,7 @@ const Profiles = ({ params }: { params: { id: string } }) => {
   return (
     <>
       <div>
-        <ProfItem user={user} />
+        <OtherProfItem user={user} />
       </div>
     </>
   );
