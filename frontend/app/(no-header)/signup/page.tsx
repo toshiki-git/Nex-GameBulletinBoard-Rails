@@ -16,6 +16,15 @@ const SignUp = () => {
   const [passwordConf, setPasswordConf] = React.useState("");
 
   const handleSubmit = async () => {
+    if (!userName || !email || !password || !passwordConf) {
+      alert("全てのフィールドに入力してください。");
+      return;
+    }
+
+    if (password !== passwordConf) {
+      alert("パスワードが一致しません。");
+      return;
+    }
     const reqBody = {
       user: {
         username: userName,
@@ -34,17 +43,8 @@ const SignUp = () => {
       await axios.post("/users", reqBody);
       await axios.post("/auth/login", reqLogin);
       router.push("/home");
-    } catch (err: any) {
-      if (err.response) {
-        const serverError =
-          err.response.data?.error ||
-          `HTTP error! Status: ${err.response.status}`;
-        console.error(serverError);
-        alert(serverError);
-      } else {
-        console.error(err.message || "An unknown error occurred.");
-        alert(err.message);
-      }
+    } catch {
+      alert("登録に失敗しました。\n Emailがほかのユーザと重複しています。");
     }
   };
 
