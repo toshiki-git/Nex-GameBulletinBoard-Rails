@@ -5,6 +5,7 @@ import PostDisplay from "./PostDisplay";
 import Link from "next/link";
 import { PostType } from "@/lib/types";
 import { Card, CardBody, Pagination, Spinner } from "@nextui-org/react";
+import MyPostDisplay from "./MyPostDisplay";
 
 const PostList = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -53,14 +54,15 @@ const PostList = () => {
   return (
     <div>
       {posts.map((post) => (
-        <Link href={`/posts/${post.id}`} key={post.id}>
-          <PostDisplay
+        <div key={post.id}>
+          <MyPostDisplay
             content={post.content}
             hashtags={post.hashtags}
             image={post.image_url}
             userId={post.user_id}
+            postId={post.id}
           />
-        </Link>
+        </div>
       ))}
       <div className="flex flex-col gap-5 justify-center items-center mt-4">
         <div className="flex justify-center w-full">
