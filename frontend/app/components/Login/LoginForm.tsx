@@ -17,21 +17,10 @@ const LoginForm = () => {
         email: email,
         password: password,
       };
-      const res = await axios.post("/auth/login", reqBody);
-      const data = res.data;
-      console.log(data);
+      await axios.post("/auth/login", reqBody);
       router.push("/home");
-    } catch (err: any) {
-      if (err.response) {
-        const serverError =
-          err.response.data?.error ||
-          `HTTP error! Status: ${err.response.status}`;
-        console.error(serverError);
-        alert(serverError);
-      } else {
-        console.error(err.message || "An unknown error occurred.");
-        alert(err.message);
-      }
+    } catch {
+      alert("Emailまたはパスワードに誤りがあるか、登録されていません。");
     }
   };
 
