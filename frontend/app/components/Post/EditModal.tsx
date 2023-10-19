@@ -23,14 +23,18 @@ const EditModal: React.FC<EditModalProps> = ({ postId, hashtags, content }) => {
   const [newContent, setNewContent] = React.useState<string>(content);
 
   const handleEdit = async () => {
+    if (newHashtags === hashtags && newContent === content) {
+      alert("変更された内容がありません。");
+      return;
+    }
     try {
-      const response = await axios.patch(`/posts/${postId}`, {
+      await axios.patch(`/posts/${postId}`, {
         hashtags: newHashtags,
         content: newContent,
       });
-      console.log(response.data);
-    } catch (err) {
-      console.error("Error editing post:", err);
+      location.reload();
+    } catch {
+      alert("投稿の編集に失敗しました。");
     } finally {
       onOpenChange();
     }
