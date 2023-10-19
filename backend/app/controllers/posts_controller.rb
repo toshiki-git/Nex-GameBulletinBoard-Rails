@@ -67,6 +67,17 @@ class PostsController < ApplicationController
                 posts: paginated_posts.map { |post| post_attributes(post) }
             }
     end
+
+    def user_posts
+        user_id = params[:user_id]
+        posts_per_page = 10 
+        user_posts = Post.where(user_id: user_id).order(created_at: :desc) 
+        paginated_posts =  user_posts.page(params[:page]).per(posts_per_page)
+        render json: {
+                total_posts:  user_posts.count,
+                posts: paginated_posts.map { |post| post_attributes(post) }
+            }
+    end
     
     private
     
