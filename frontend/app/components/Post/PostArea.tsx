@@ -91,6 +91,7 @@ const PostArea: React.FC<PostAreaProps> = ({ onNewPost }) => {
           label="ハッシュタグ"
           labelPlacement="outside"
           placeholder="#ハッシュタグを入力してください"
+          value={hashtags}
           onValueChange={(value) => setHashtags(value)}
         />
         <Textarea
@@ -99,6 +100,7 @@ const PostArea: React.FC<PostAreaProps> = ({ onNewPost }) => {
           placeholder="投稿内容を入力してください"
           minRows={4}
           onValueChange={(value) => setContent(value)}
+          value={content}
           className="mt-4"
         />
       </CardBody>
