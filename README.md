@@ -21,9 +21,20 @@ Docker の場合は以下のようなポート設定になっています。
 
 ### User Table
 
-- **id**: bigint
+- **id(PK)**: bigint
 - **username**: character varying
 - **email**: character varying
 - **password_digest**: character varying
 - **created_at**: timestamp without time zone
 - **updated_at**: timestamp without time zone
+
+### Post Table
+
+- **id(PK)**: bigint
+- **user_id(FK -> User Table)**: bigint
+- **hashtags**: character varying
+- **password_digest**: character varying
+- **created_at**: timestamp without time zone
+- **updated_at**: timestamp without time zone
+
+
