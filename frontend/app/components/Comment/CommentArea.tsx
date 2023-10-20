@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import axios from "@/lib/axios"; // axiosを使ってHTTPリクエストを行う
 import { Button, Textarea } from "@nextui-org/react";
