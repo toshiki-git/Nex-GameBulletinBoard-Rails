@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import axios from "@/lib/axios";
 import { CommentDataType } from "@/lib/types";
