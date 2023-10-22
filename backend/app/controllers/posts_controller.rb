@@ -18,14 +18,20 @@ class PostsController < ApplicationController
     end
 
     def create
-        post = Post.new(post_params)
-        post.image.attach(params[:post][:image]) if params[:post][:image].present?
-        if post.save
-            render json: post_attributes(post), status: :created
+        # メールアドレスがtest@example.comのユーザーの投稿を制限
+        if current_user.email == 'test@example.com'
+          render json: { error: 'testユーザーには投稿権限がありません' }, status: :forbidden
         else
-            render json: post.errors, status: :unprocessable_entity
+            post = Post.new(post_params)
+            post.image.attach(params[:post][:image]) if params[:post][:image].present?
+      
+            if post.save
+                render json: post_attributes(post), status: :created
+            else
+                render json: post.errors, status: :unprocessable_entity
+            end
         end
-    end
+      end
 
     def update
         post = Post.find params[:id]
