@@ -1,7 +1,9 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import axios from "@/lib/axios";
 import { CommentDataType } from "@/lib/types";
 import CommentDisplay from "./CommnetDisplay";
+import { Card, CardBody } from "@nextui-org/react";
 
 interface CommentListProps {
   postId: number;
@@ -9,7 +11,6 @@ interface CommentListProps {
 
 const CommentList: React.FC<CommentListProps> = ({ postId }) => {
   const [comments, setComments] = useState<CommentDataType[]>([]);
-  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -17,12 +18,9 @@ const CommentList: React.FC<CommentListProps> = ({ postId }) => {
     const fetchComments = async () => {
       try {
         const response = await axios.get(`/posts/${postId}/comments`);
-        // コメントデータがユーザーデータを含むようになったため、
-        // レスポンスから直接コメントをセットできるようになりました。
         setComments(response.data);
-        setError(null);
       } catch (error) {
-        setError("コメントの取得に失敗しました。もう一度お試しください。");
+        alert("コメントの取得に失敗しました。もう一度お試しください。");
         console.error(error);
       } finally {
         setIsLoading(false);
@@ -30,20 +28,25 @@ const CommentList: React.FC<CommentListProps> = ({ postId }) => {
     };
 
     fetchComments();
-  }, [postId]); // postIdが変更されたときにコメントを再取得します。
+  }, []);
 
   if (isLoading) {
-    return <div>読み込み中...</div>; // または他のローディングインジケーター
+    return <div>読み込み中...</div>;
   }
 
-  if (error) {
-    return <div>エラー: {error}</div>;
+  if (comments.length === 0) {
+    return (
+      <Card className="mt-3">
+        <CardBody>
+          <p>コメントはまだありません。</p>
+        </CardBody>
+      </Card>
+    );
   }
 
   return (
     <div>
       {comments.map((comment) => (
-        // 各CommentDisplayには、それぞれのコメントに紐づくユーザー情報が含まれます。
         <CommentDisplay
           key={comment.id}
           comment={comment}

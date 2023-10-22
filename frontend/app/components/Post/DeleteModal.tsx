@@ -18,8 +18,14 @@ const EditModal: React.FC<EditModalProps> = ({ postId }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const handleDelete = () => {
-    axios.delete(`/posts/${postId}`);
-    onOpenChange();
+    try {
+      axios.delete(`/posts/${postId}`);
+      location.reload();
+    } catch {
+      alert("投稿の削除に失敗しました。");
+    } finally {
+      onOpenChange();
+    }
   };
   return (
     <>

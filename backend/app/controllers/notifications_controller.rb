@@ -15,6 +15,15 @@ class NotificationsController < ApplicationController
       })
     }
   end
+
+  def destroy
+    notification = current_user.notifications.find(params[:id])
+    if notification.destroy
+      render json: { success: true }
+    else
+      render json: { success: false }, status: :unprocessable_entity
+    end
+  end
   
     def update
       # 通知を既読にする
