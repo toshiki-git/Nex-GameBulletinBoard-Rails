@@ -1,16 +1,18 @@
 class CommentsController < ApplicationController
   
   def create
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.create(comment_params.merge(user_id: current_user.id))
-
-    if @comment.save
-      # 通知を作成します。これは、ポストのオーナーに通知します。
-      create_notification(@post, @comment)
-
-      render json: @comment, status: :created
+    if current_user.email == 'test@example.com'
+      render json: { error: 'testユーザーにはコメント投稿権限がありません' }, status: :forbidden
     else
-      render json: @comment.errors, status: :unprocessable_entity
+      @post = Post.find(params[:post_id])
+      @comment = @post.comments.new(comment_params.merge(user_id: current_user.id))
+  
+      if @comment.save
+        create_notification(@post, @comment)
+        render json: @comment, status: :created
+      else
+        render json: @comment.errors, status: :unprocessable_entity
+      end
     end
   end
 
@@ -21,7 +23,7 @@ class CommentsController < ApplicationController
       render json: comments.as_json(include: {
         user: {
           only: [:id, :username, :email],
-          methods: [:image_url]  # 'image_url'メソッドを結果に含める
+          methods: [:image_url]
         }
       })
     end
@@ -44,8 +46,6 @@ class CommentsController < ApplicationController
     
       unless notification.save
         logger.error notification.errors.full_messages.to_sentence
-        # もしくは
-        # puts notification.errors.full_messages.to_sentence
       end
     end
     

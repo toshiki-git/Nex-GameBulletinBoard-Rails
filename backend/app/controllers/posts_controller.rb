@@ -34,15 +34,23 @@ class PostsController < ApplicationController
       end
 
     def update
-        post = Post.find params[:id]
-        post.update(post_params)
-        render json: post_attributes(post)
+        if current_user.email == 'test@example.com'
+            render json: { error: 'testユーザーには編集権限がありません' }, status: :forbidden
+        else
+            post = Post.find params[:id]
+            post.update(post_params)
+            render json: post_attributes(post)
+        end
     end
 
     def destroy
-        post = Post.find params[:id]
-        post.destroy
-        render json: post
+        if current_user.email == 'test@example.com'
+            render json: { error: 'testユーザーには削除権限がありません' }, status: :forbidden
+        else
+            post = Post.find params[:id]
+            post.destroy
+            render json: post
+        end
     end
 
     def search
