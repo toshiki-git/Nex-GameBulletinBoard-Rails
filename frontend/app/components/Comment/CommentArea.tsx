@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import axios from "@/lib/axios"; // axiosを使ってHTTPリクエストを行う
+import axios from "@/lib/axios";
 import { Button, Input } from "@nextui-org/react";
 import SearchCSS from "@/app/components/Search/Search.module.scss";
 
 interface CommentAreaProps {
-  postId: number; // 必要に応じて型を調整してください (例: string)
+  postId: number;
 }
 
 const CommentArea: React.FC<CommentAreaProps> = ({ postId }) => {

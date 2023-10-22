@@ -7,7 +7,7 @@ import { PostType } from "@/lib/types";
 
 interface PostListProps {
   results?: PostType[];
-  newPost?: PostType; // 追加された行
+  newPost?: PostType;
 }
 
 const PostList: React.FC<PostListProps> = ({ results, newPost }) => {
@@ -23,7 +23,6 @@ const PostList: React.FC<PostListProps> = ({ results, newPost }) => {
           setPosts(response.data.reverse());
         } catch (err) {
           setError("データの取得に失敗しました。");
-          console.error("Error fetching posts:", err);
         } finally {
           setIsLoading(false);
         }

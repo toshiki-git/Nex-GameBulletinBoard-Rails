@@ -23,7 +23,7 @@ const NotificationList = () => {
         setNotifications(validNotifications);
         setIsLoading(false);
       } catch (error) {
-        console.error("There was an error fetching the notifications!", error);
+        alert("データの取得に失敗しました。");
       } finally {
         setIsLoading(false);
       }

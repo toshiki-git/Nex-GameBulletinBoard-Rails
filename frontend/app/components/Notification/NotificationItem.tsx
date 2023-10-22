@@ -59,7 +59,7 @@ const NotificationItem: React.FC<NotificationProps> = ({
         radius="full"
         style={{
           position: "absolute",
-          top: "5px", // 右上隅に配置
+          top: "5px",
           right: "5px",
         }}
       >

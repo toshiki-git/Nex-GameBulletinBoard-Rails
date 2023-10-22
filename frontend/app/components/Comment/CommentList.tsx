@@ -21,7 +21,6 @@ const CommentList: React.FC<CommentListProps> = ({ postId }) => {
         setComments(response.data);
       } catch (error) {
         alert("コメントの取得に失敗しました。もう一度お試しください。");
-        console.error(error);
       } finally {
         setIsLoading(false);
       }
