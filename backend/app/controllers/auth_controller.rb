@@ -14,7 +14,6 @@ class AuthController < ApplicationController
   end
 
   def logout
-    # クッキーからトークンを削除
     cookies.delete(:user_token)
     render json: { status: 'logged out' }, status: :ok
   end
