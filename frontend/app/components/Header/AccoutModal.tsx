@@ -51,9 +51,16 @@ const AccoutModal: React.FC<AccoutModalProps> = ({ isOpen, onClose }) => {
           username: username,
         },
       });
-      alert("ユーザー名を変更しました");
-    } catch (error) {
-      console.error("Error updating user:", error);
+      alert("変更しました");
+    } catch (err: any) {
+      if (err.response) {
+        const serverError =
+          err.response.data?.error ||
+          `HTTP error! Status: ${err.response.status}`;
+        alert(serverError);
+      } else {
+        alert(err.message);
+      }
     }
   };
 
@@ -69,9 +76,15 @@ const AccoutModal: React.FC<AccoutModalProps> = ({ isOpen, onClose }) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      alert("アップロードが完了しました");
-    } catch (error) {
-      console.error("Error uploading image:", error);
+    } catch (err: any) {
+      if (err.response) {
+        const serverError =
+          err.response.data?.error ||
+          `HTTP error! Status: ${err.response.status}`;
+        alert(serverError);
+      } else {
+        alert(err.message);
+      }
     }
   };
 
