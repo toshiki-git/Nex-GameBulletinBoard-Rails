@@ -1,16 +1,8 @@
 import React from "react";
 import postAreaCSS from "./PostArea.module.scss";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Image,
-  User,
-} from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Image, User } from "@nextui-org/react";
 import useGetUser from "@/app/hooks/UseGetUser";
 import Link from "next/link";
-import axios from "@/lib/axios";
 import EditModal from "./EditModal";
 import DeleteModal from "./DeleteModal";
 

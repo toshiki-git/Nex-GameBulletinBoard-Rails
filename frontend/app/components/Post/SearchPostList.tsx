@@ -37,11 +37,10 @@ const SearchPostList: React.FC<SearchPostListProps> = ({ query }) => {
       }
     };
 
-    // Fetch posts when page or query changes
     if (query) {
       fetchPosts();
     } else {
-      setPosts([]); // Clear posts if query is empty
+      setPosts([]);
     }
   }, [query]);
 
@@ -62,11 +61,10 @@ const SearchPostList: React.FC<SearchPostListProps> = ({ query }) => {
       }
     };
 
-    // Fetch posts when page or query changes
     if (query) {
       fetchPosts();
     } else {
-      setPosts([]); // Clear posts if query is empty
+      setPosts([]);
     }
   }, [currentPage]);
 

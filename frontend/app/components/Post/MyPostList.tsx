@@ -1,8 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "@/lib/axios";
-import PostDisplay from "./PostDisplay";
-import Link from "next/link";
 import { PostType } from "@/lib/types";
 import { Card, CardBody, Pagination, Spinner } from "@nextui-org/react";
 import MyPostDisplay from "./MyPostDisplay";
@@ -40,7 +38,6 @@ const PostList = () => {
     );
   if (error) return <p>{error}</p>;
 
-  // Check if there are no posts and render a message
   if (posts.length === 0) {
     return (
       <Card className="mt-3">

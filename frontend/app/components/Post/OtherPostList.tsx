@@ -28,7 +28,6 @@ const OtherPostList: React.FC<OtherPostListProps> = ({ userId }) => {
         setPostsCount(response.data.total_posts);
       } catch (err) {
         setError("データの取得に失敗しました。");
-        console.error("Error fetching posts:", err);
       } finally {
         setIsLoading(false);
       }

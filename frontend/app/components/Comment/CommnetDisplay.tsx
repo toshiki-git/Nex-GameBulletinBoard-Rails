@@ -5,14 +5,13 @@ import postAreaCSS from "@/app/components/Post/PostArea.module.scss";
 
 interface CommentDisplayProps {
   comment: CommentDataType;
-  userData: UserDataType; // このプロパティは各コメントに結びついているユーザーデータです。
+  userData: UserDataType;
 }
 
 const CommentDisplay: React.FC<CommentDisplayProps> = ({
   comment,
   userData,
 }) => {
-  // userDataオブジェクトから必要な情報を取得します。
   const { id, username, email, image_url } = userData;
 
   return (

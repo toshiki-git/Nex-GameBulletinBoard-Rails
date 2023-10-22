@@ -24,7 +24,6 @@ import React from "react";
 
 import useSwitchTheme from "@/app/utils/theme";
 import Link from "next/link";
-//import useGetMe from "@/hooks/UserMe";
 import headerCSS from "./Header.module.scss";
 import MenuTab from "./HeaderItem";
 import AccoutModal from "./AccoutModal";
@@ -73,8 +72,7 @@ const HeaderItem = () => {
 };
 
 const Header = () => {
-  const { theme, setTheme } = useTheme();
-  //const switchTheme = useSwitchTheme();
+  const { theme } = useTheme();
   const { userData } = useGetMe();
   const {
     isOpen: isAccountModalOpen,
