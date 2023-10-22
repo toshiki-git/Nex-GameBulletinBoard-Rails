@@ -71,10 +71,8 @@ const PostArea: React.FC<PostAreaProps> = ({ onNewPost }) => {
         const serverError =
           err.response.data?.error ||
           `HTTP error! Status: ${err.response.status}`;
-        console.error(serverError);
         alert(serverError);
       } else {
-        console.error(err.message || "An unknown error occurred.");
         alert(err.message);
       }
     }

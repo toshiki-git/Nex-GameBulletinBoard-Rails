@@ -17,12 +17,19 @@ interface EditModalProps {
 const EditModal: React.FC<EditModalProps> = ({ postId }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     try {
-      axios.delete(`/posts/${postId}`);
+      await axios.delete(`/posts/${postId}`);
       location.reload();
-    } catch {
-      alert("投稿の削除に失敗しました。");
+    } catch (err: any) {
+      if (err.response) {
+        const serverError =
+          err.response.data?.error ||
+          `HTTP error! Status: ${err.response.status}`;
+        alert(serverError);
+      } else {
+        alert(err.message);
+      }
     } finally {
       onOpenChange();
     }

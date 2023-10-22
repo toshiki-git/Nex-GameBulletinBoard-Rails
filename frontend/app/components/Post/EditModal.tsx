@@ -33,8 +33,15 @@ const EditModal: React.FC<EditModalProps> = ({ postId, hashtags, content }) => {
         content: newContent,
       });
       location.reload();
-    } catch {
-      alert("投稿の編集に失敗しました。");
+    } catch (err: any) {
+      if (err.response) {
+        const serverError =
+          err.response.data?.error ||
+          `HTTP error! Status: ${err.response.status}`;
+        alert(serverError);
+      } else {
+        alert(err.message);
+      }
     } finally {
       onOpenChange();
     }

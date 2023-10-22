@@ -26,8 +26,15 @@ const CommentArea: React.FC<CommentAreaProps> = ({ postId }) => {
       });
       setComment("");
       location.reload();
-    } catch (error) {
-      alert("コメントの投稿に失敗しました。もう一度お試しください。");
+    } catch (err: any) {
+      if (err.response) {
+        const serverError =
+          err.response.data?.error ||
+          `HTTP error! Status: ${err.response.status}`;
+        alert(serverError);
+      } else {
+        alert(err.message);
+      }
     } finally {
       setIsLoading(false);
     }

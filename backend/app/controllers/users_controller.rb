@@ -22,12 +22,16 @@ class UsersController < ApplicationController
   end
   
   def update
-    @user.assign_attributes(user_params)
-    attach_user_image
-    if @user.save
-      render json: user_attributes(@user), status: :ok
+    if current_user.email == 'test@example.com'
+      render json: { error: 'testユーザーにはユーザ名変更権限がありません' }, status: :forbidden
     else
-      render json: @user.errors, status: :unprocessable_entity
+      @user.assign_attributes(user_params)
+      attach_user_image
+      if @user.save
+        render json: user_attributes(@user), status: :ok
+      else
+        render json: @user.errors, status: :unprocessable_entity
+      end
     end
   end
   
@@ -41,11 +45,15 @@ class UsersController < ApplicationController
   end
   
   def upload_image
-    @user.image.attach(user_params[:image])
-    if @user.save
-      render json: { message: 'Image uploaded successfully' }, status: :ok
+    if current_user.email == 'test@example.com'
+      render json: { error: 'testユーザーにはアイコン変更権限がありません' }, status: :forbidden
     else
-      render json: @user.errors, status: :unprocessable_entity
+      @user.image.attach(user_params[:image])
+      if @user.save
+        render json: { message: 'Image uploaded successfully' }, status: :ok
+      else
+        render json: @user.errors, status: :unprocessable_entity
+      end
     end
   end
 
