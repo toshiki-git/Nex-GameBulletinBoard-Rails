@@ -29,7 +29,7 @@ module Backend
     # CORS configuration (assuming you've added rack-cors to your Gemfile)
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'http://localhost:3000', 'https://nex-game-bulletin-board-rails.vercel.app'
+        origins '*'
         resource '*',
                  headers: :any,
                  methods: [:get, :post, :put, :patch, :delete, :options, :head],
