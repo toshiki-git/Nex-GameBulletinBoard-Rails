@@ -3,6 +3,15 @@
 ハッカソンに参加し、ゲーム専用の掲示板 Nex を作成しました。
 ハッカソンではフロントエンドを担当して、バックエンドは触れていなかったので、Rails を使って 1 から自分で作って見ることにしました。
 
+### Demo
+
+
+https://github.com/toshiki-git/Nex-GameBulletinBoard-Rails/assets/134392452/e5689bf6-dfa7-4e36-974b-827aca0c934b
+
+
+
+
+
 # 開発環境
 
 - Node.js 18.17.1
