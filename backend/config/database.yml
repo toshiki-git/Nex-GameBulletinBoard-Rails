@@ -10,3 +10,10 @@ default: &default
 development:
   <<: *default
   database: nex
+
+production:
+  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+```
