@@ -32,7 +32,8 @@ module Backend
         origins 'http://localhost:3000', 'https://nex-game-bulletin-board-rails.vercel.app'
         resource '*',
                  headers: :any,
-                 methods: [:get, :post, :put, :patch, :delete, :options, :head]
+                 methods: [:get, :post, :put, :patch, :delete, :options, :head],
+                 credentials: true
       end
     end
 
