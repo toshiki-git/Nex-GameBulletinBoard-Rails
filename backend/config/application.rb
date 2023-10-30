@@ -26,6 +26,7 @@ module Backend
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
     
+    config.hosts << 'nex-game-bulletin-board-rails.vercel.app'
     # CORS configuration (assuming you've added rack-cors to your Gemfile)
     config.middleware.insert_before 0, Rack::Cors do
       allow do
