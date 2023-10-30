@@ -53,6 +53,8 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
+  config.hosts << 'localhost:3001'
+
   Rails.application.routes.default_url_options[:host] = 'localhost:3001'
   Rails.application.routes.default_url_options[:protocol] = 'http'
   
