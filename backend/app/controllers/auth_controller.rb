@@ -6,12 +6,7 @@ class AuthController < ApplicationController
   
     if user&.authenticate(params[:password])
       token = JwtService.encode(user_id: user.id)
-      cookies.signed[:user_token] = {
-        value: token,
-        httponly: true,
-        secure: Rails.env.production?,
-        same_site: :none
-      }
+      cookies.signed[:user_token] = { value: token, httponly: true, secure: Rails.env.production? }
       render json: { success: token }
     else
       render json: { error: 'Invalid credentials' }, status: :unauthorized
