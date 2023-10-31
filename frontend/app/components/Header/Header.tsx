@@ -79,10 +79,7 @@ const Header = () => {
     onClose: closeAccountModal,
   } = useDisclosure();
 
-  const handleLogout = () => {
-    /* document.cookie = "user_token=; max-age=0";
-    location.href = "/login"; */
-  };
+  const handleLogout = () => {};
   const maxLength = 17;
 
   const formatEmail = (email: string) => {
