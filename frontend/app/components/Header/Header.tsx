@@ -28,7 +28,6 @@ import headerCSS from "./Header.module.scss";
 import MenuTab from "./HeaderItem";
 import AccoutModal from "./AccoutModal";
 
-import axios from "@/lib/axios";
 import useGetMe from "@/app/hooks/UserMe";
 
 const headerItemList = [
@@ -81,15 +80,8 @@ const Header = () => {
   } = useDisclosure();
 
   const handleLogout = () => {
-    axios
-      .delete("/auth/logout")
-      .then((res) => {
-        console.log(res);
-        location.href = "/login";
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    document.cookie = "user_token=; max-age=0";
+    location.href = "/login";
   };
   const maxLength = 17;
 
