@@ -3,6 +3,7 @@ import { Button } from "@nextui-org/react";
 import React from "react";
 import { useRouter } from "next/navigation";
 import axios from "@/lib/axios";
+import Cookies from "js-cookie";
 
 const SignupLink = () => {
   const router = useRouter();
@@ -12,9 +13,11 @@ const SignupLink = () => {
         email: "test@example.com",
         password: "password",
       };
-      const res = await axios.post("/auth/login", reqBody);
-      const data = res.data;
-      console.log(data);
+      const response = await axios.post("/auth/login", reqBody);
+      Cookies.set("user_token", response.data.token, { expires: 1 });
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${response.data.token}`;
       router.push("/home");
     } catch (err: any) {
       if (err.response) {
