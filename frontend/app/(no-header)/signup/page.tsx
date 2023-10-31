@@ -5,6 +5,7 @@ import { AiFillEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import axios from "@/lib/axios";
 import Welcom from "@/app/components/Login/Welcom";
+import Cookies from "js-cookie";
 
 const SignUp = () => {
   const router = useRouter();
@@ -41,7 +42,11 @@ const SignUp = () => {
 
     try {
       await axios.post("/users", reqBody);
-      await axios.post("/auth/login", reqLogin);
+      const response = await axios.post("/auth/login", reqLogin);
+      Cookies.set("user_token", response.data.token, { expires: 1 });
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${response.data.token}`;
       router.push("/home");
     } catch {
       alert("登録に失敗しました。\n Emailがほかのユーザと重複しています。");
