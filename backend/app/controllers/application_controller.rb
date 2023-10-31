@@ -6,7 +6,8 @@ class ApplicationController < ActionController::API
   private
 
   def authenticate_request
-    token = cookies.signed[:user_token]
+    #token = cookies.signed[:user_token]
+    token = request.headers['Authorization']&.split(' ')&.last
     decoded_token = JwtService.decode(token) rescue nil
   
     if decoded_token
