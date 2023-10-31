@@ -12,6 +12,7 @@
     "@nextui-org/react": "^2.1.13",
     "axios": "^1.5.1",
     "framer-motion": "^10.16.4",
+    "js-cookie": "^3.0.5",
     "next": "latest",
     "next-themes": "^0.2.1",
     "react": "latest",
