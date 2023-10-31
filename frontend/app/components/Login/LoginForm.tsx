@@ -17,7 +17,8 @@ const LoginForm = () => {
         email: email,
         password: password,
       };
-      await axios.post("/auth/login", reqBody);
+      const response = await axios.post("/auth/login", reqBody);
+      document.cookie = `user_token=${response.data.token}}`;
       router.push("/home");
     } catch {
       alert("Emailまたはパスワードに誤りがあるか、登録されていません。");
