@@ -80,8 +80,8 @@ const Header = () => {
   } = useDisclosure();
 
   const handleLogout = () => {
-    document.cookie = "user_token=; max-age=0";
-    location.href = "/login";
+    /* document.cookie = "user_token=; max-age=0";
+    location.href = "/login"; */
   };
   const maxLength = 17;
 
