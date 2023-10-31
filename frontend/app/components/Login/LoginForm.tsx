@@ -4,6 +4,7 @@ import { Button, Card, CardBody, CardHeader, Input } from "@nextui-org/react";
 import { AiFillEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import axios from "@/lib/axios";
+import Cookies from "js-cookie";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -18,7 +19,7 @@ const LoginForm = () => {
         password: password,
       };
       const response = await axios.post("/auth/login", reqBody);
-      document.cookie = `user_token=${response.data.token}}`;
+      Cookies.set("user_token", response.data.token, { expires: 1 });
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${response.data.token}`;

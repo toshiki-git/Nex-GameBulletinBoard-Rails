@@ -29,6 +29,7 @@ import MenuTab from "./HeaderItem";
 import AccoutModal from "./AccoutModal";
 
 import useGetMe from "@/app/hooks/UserMe";
+import Cookies from "js-cookie";
 
 const headerItemList = [
   {
@@ -79,7 +80,10 @@ const Header = () => {
     onClose: closeAccountModal,
   } = useDisclosure();
 
-  const handleLogout = () => {};
+  const handleLogout = () => {
+    Cookies.remove("user_token");
+    location.href = "/login";
+  };
   const maxLength = 17;
 
   const formatEmail = (email: string) => {
