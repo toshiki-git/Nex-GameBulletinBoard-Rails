@@ -26,6 +26,11 @@ Docker の場合は以下のようなポート設定になっています。
 | 3000 | Next.js | frontend-next |
 | 5432 | PostgreSQL | db-posgres |
 
+# 本番環境
+
+![Nex_技術スタック](https://github.com/toshiki-git/Nex-GameBulletinBoard-Rails/assets/134392452/d3e17dd9-e4d8-4ce6-bdbf-73b140b9f02c)
+
+
 # DB のスキーマ
 
 ### User Table
