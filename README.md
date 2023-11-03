@@ -51,4 +51,27 @@ https://nex-game-bulletin-board-rails.vercel.app/login
 - **created_at**: timestamp without time zone
 - **updated_at**: timestamp without time zone
 
+### Comment Table
+
+- **id(PK)**: bigint
+- **content**: text
+- **user_id(FK -> User Table)**: bigint
+- **post_id(FK -> Post Table)**: bigint
+- **created_at**: timestamp without time zone
+- **updated_at**: timestamp without time zone
+
+### Notification Table
+
+- **id(PK)**: bigint
+- **recipient_id(FK -> User Table)**: bigint
+- **actor_id(FK -> User Table)**: bigint
+- **notifiable_id(FK -> Comment Table)**: bigint
+- **notifiable_type**: character varying
+- **action**:character varying
+- **read_at**: timestamp without time zone
+- **created_at**: timestamp without time zone
+- **updated_at**: timestamp without time zone
+
+
+
 
