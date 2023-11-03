@@ -25,11 +25,12 @@ import React from "react";
 import useSwitchTheme from "@/app/utils/theme";
 import Link from "next/link";
 import headerCSS from "./Header.module.scss";
-import MenuTab from "./HeaderItem";
+import MenuTab from "./MenuTabItem";
 import AccoutModal from "./AccoutModal";
 
 import useGetMe from "@/app/hooks/UserMe";
 import Cookies from "js-cookie";
+import HamburgerMenu from "./HamburgerMenu";
 
 const headerItemList = [
   {
@@ -74,6 +75,7 @@ const HeaderItem = () => {
 const Header = () => {
   const { theme } = useTheme();
   const { userData } = useGetMe();
+
   const {
     isOpen: isAccountModalOpen,
     onOpen: openAccountModal,
@@ -98,6 +100,7 @@ const Header = () => {
       <div className={headerCSS.header__items}>
         <HeaderItem />
       </div>
+      <HamburgerMenu />
       <Dropdown>
         <DropdownTrigger>
           <div className={headerCSS.header__icon}>
