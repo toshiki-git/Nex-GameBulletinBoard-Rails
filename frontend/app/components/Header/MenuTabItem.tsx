@@ -10,7 +10,7 @@ type MenuTabProps = {
   url: string;
 };
 
-const HeaderItem = ({ name, icon, url }: MenuTabProps) => {
+const MenuTabItem = ({ name, icon, url }: MenuTabProps) => {
   const fontSize = useMemo(() => ({ size: "18px" }), []);
   const router = usePathname();
 
@@ -39,4 +39,4 @@ const HeaderItem = ({ name, icon, url }: MenuTabProps) => {
   );
 };
 
-export default HeaderItem;
+export default MenuTabItem;
