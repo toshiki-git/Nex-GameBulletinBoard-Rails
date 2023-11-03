@@ -32,7 +32,7 @@ const HamburgerMenu = () => {
           <DropdownItem key="home" className="hover:bg-focus">
             <Link
               href="/home"
-              className="flex items-center space-x-2 py-2 px-4"
+              className="flex items-center space-x-2 py-2 px-4 w-full h-full"
             >
               <IoGameController className="text-foreground" />
               <span className="text-foreground font-bold">タイムライン</span>
@@ -42,7 +42,7 @@ const HamburgerMenu = () => {
           <DropdownItem key="notification" className="hover:bg-focus">
             <Link
               href="/notification"
-              className="flex items-center space-x-2 py-2 px-4"
+              className="flex items-center space-x-2 py-2 px-4 w-full h-full"
             >
               <BsBellFill className="text-foreground" />
               <span className="text-foreground font-bold">通知</span>
@@ -52,7 +52,7 @@ const HamburgerMenu = () => {
           <DropdownItem key="search" className="hover:bg-focus">
             <Link
               href="/search"
-              className="flex items-center space-x-2 py-2 px-4"
+              className="flex items-center space-x-2 py-2 px-4 w-full h-full"
             >
               <BsSearch className="text-foreground" />
               <span className="text-foreground font-bold">検索</span>
@@ -62,7 +62,7 @@ const HamburgerMenu = () => {
           <DropdownItem key="profile" className="hover:bg-focus">
             <Link
               href="/profile"
-              className="flex items-center space-x-2 py-2 px-4"
+              className="flex items-center space-x-2 py-2 px-4 w-full h-full"
             >
               <BsFillPersonFill className="text-foreground" />
               <span className="text-foreground font-bold">プロフィール</span>
