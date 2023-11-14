@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy, :upload_image]
   skip_before_action :authenticate_request, only: [:create]
 
+  #最終的には消去
   def index
     users = User.all.map { |user| user_attributes(user) }
     render json: users, status: :ok
